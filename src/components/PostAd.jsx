@@ -13,7 +13,7 @@ export default function PostAd({ onPost }) {
 
     const formData = new FormData()
     formData.append('file', file)
-    formData.append('upload_preset', 'marketplace_preset') // Cloudinary unsigned preset
+    formData.append('upload_preset', 'marketplace_preset')
 
     try {
       const res = await fetch('https://api.cloudinary.com/v1_1/domxt8bbd/image/upload', {
@@ -53,43 +53,50 @@ export default function PostAd({ onPost }) {
       setTitle('')
       setDescription('')
       setImageUrl('')
-      onPost?.() // optional callback to refresh ads
+      onPost?.()
     } catch (err) {
       setStatus('❌ Error posting ad')
     }
   }
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow max-w-xl mx-auto my-6">
-      <h2 className="text-xl font-bold mb-4">Post a New Ad</h2>
+    <div className="bg-white p-6 rounded-xl shadow max-w-2xl mx-auto my-8 border border-gray-200">
+      <h2 className="text-2xl font-bold mb-4">📢 Post a New Ad</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
-          className="w-full border p-2 rounded"
+          className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
         />
         <textarea
-          className="w-full border p-2 rounded"
+          className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
           placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={4}
           required
         />
-        <input type="file" onChange={handleFileChange} className="w-full" accept="image/*" />
-        {imageUrl && <img src={imageUrl} alt="preview" className="mt-2 rounded w-48" />}
+        <div>
+          <label className="block mb-1 text-sm font-medium">Upload Image</label>
+          <input
+            type="file"
+            onChange={handleFileChange}
+            accept="image/*"
+            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+          />
+          {imageUrl && <img src={imageUrl} alt="preview" className="mt-4 rounded-lg w-full max-w-xs" />}
+        </div>
         <button
           type="submit"
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+          className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 disabled:opacity-50"
           disabled={!title || !description || !imageUrl}
         >
           Post Ad
         </button>
-        {status && <p className="text-sm text-gray-600 mt-2">{status}</p>}
+        {status && <p className="text-sm text-gray-600 text-center">{status}</p>}
       </form>
     </div>
   )
 }
-

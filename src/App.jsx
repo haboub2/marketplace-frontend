@@ -22,16 +22,16 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <header className="sticky top-0 z-10 flex justify-between items-center p-4 bg-white shadow">
-        <h1 className="text-xl font-bold text-gray-800">Marketplace</h1>
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-200 text-gray-800">
+      <header className="sticky top-0 z-10 flex justify-between items-center px-6 py-4 bg-white shadow-md">
+        <h1 className="text-2xl font-bold tracking-tight">My Marketplace</h1>
         <div className="flex items-center gap-4">
           {user ? (
             <>
-              <span className="text-sm text-gray-700">{user.email}</span>
+              <span className="text-sm">{user.email}</span>
               <button
                 onClick={handleLogout}
-                className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 transition"
               >
                 Logout
               </button>
@@ -39,7 +39,7 @@ function App() {
           ) : (
             <button
               onClick={() => setShowLogin(!showLogin)}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition"
             >
               {showLogin ? 'Close' : 'Login'}
             </button>
@@ -48,20 +48,28 @@ function App() {
       </header>
 
       {showLogin && !user && (
-        <div className="absolute right-4 top-20 w-full max-w-sm mx-auto z-10">
-          <Login />
+        <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-start pt-20 z-50">
+          <div className="w-full max-w-md mx-4">
+            <Login />
+          </div>
         </div>
       )}
 
-      <main className="p-6 text-gray-800">
+      <main className="max-w-5xl mx-auto p-4 md:p-8">
         {user ? (
           <PostAd />
         ) : (
-          <p className="text-lg mb-6">Welcome to the marketplace! Please log in to post an ad.</p>
+          <p className="text-lg mb-6 text-center">
+            👋 Welcome! Please <span className="font-semibold">log in</span> to post your own ad.
+          </p>
         )}
 
         <AdsGrid />
       </main>
+
+      <footer className="text-center text-sm text-gray-500 py-6">
+        &copy; {new Date().getFullYear()} My Marketplace. Built with Firebase & React.
+      </footer>
     </div>
   )
 }

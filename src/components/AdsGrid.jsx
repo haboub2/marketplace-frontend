@@ -15,15 +15,15 @@ export default function AdsGrid() {
       {ads.map(ad => (
         <div
           key={ad.id}
-          className="bg-white p-4 rounded-xl shadow hover:shadow-md transition"
+          className="bg-white p-4 rounded-2xl shadow-md hover:shadow-lg transition border border-gray-200"
         >
-          <h3 className="text-lg font-semibold mb-2">{ad.title}</h3>
-          <p className="text-sm mb-2">{ad.description}</p>
+          <h3 className="text-lg font-semibold mb-1 text-gray-800">{ad.title}</h3>
+          <p className="text-sm mb-3 text-gray-600">{ad.description}</p>
           {ad.image_url && (
             <img
               src={ad.image_url}
               alt={ad.title}
-              className="w-full rounded object-cover h-48"
+              className="w-full h-48 object-cover rounded-lg border"
             />
           )}
         </div>
@@ -31,4 +31,3 @@ export default function AdsGrid() {
     </div>
   )
 }
-
